@@ -52,11 +52,6 @@ void ThreePerceptron::learn() {
 	double error_out = 0;
 	int learnCount = 0;
 
-	// 初期値で成功する場合を考慮.
-	calc_p_errorTotal();
-	std::cout << learnCount << ", " << p << ", " << errorTotal_out << std::endl;
-	if (p >= 98.5 && errorTotal_out < 4.5) flagLearned = true;
-
 	while (!flagLearned) {
 		for (int i = 0; i < Teach_in.size(); i++) {
 			forwardPropagation(i);
@@ -72,12 +67,10 @@ void ThreePerceptron::learn() {
 				learnCount++;
 			}
 		}
-
 		calc_p_errorTotal();
 		std::cout << learnCount << ", " << p << ", " << errorTotal_out << std::endl;
 
-		// ORにして条件を緩めている.
-		if (p >= 98.5 || errorTotal_out < 4.5) flagLearned = true;
+		if (p >= 98.5 && errorTotal_out < 4.5) flagLearned = true;
 	}
 }
 
@@ -87,7 +80,8 @@ void ThreePerceptron::learn() {
 //	double error_out = 0;
 //	int learnCount = 0;
 //
-//	// 初期値で成功する場合を考慮.
+//	// 初期値で成功する場合を考慮. 
+//	// <- 重みの履歴を見ると成功する重みは[-1.0, 1.0]ではなさそうなのでこの処理は無くていいのでは…
 //	calc_p_errorTotal();
 //	std::cout << learnCount << ", " << p << ", " << errorTotal_out << std::endl;
 //	if (p >= 98.5 && errorTotal_out < 4.5) flagLearned = true;
