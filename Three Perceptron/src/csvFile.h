@@ -15,7 +15,7 @@
 
 class csvFile
 {
-	// SinglePerceptron(継承クラス) でprivate変数使いたいなら, private -> protectedにする.
+	// 継承クラスでprivate変数使いたいなら, private -> protectedにする.
 private:
 	std::string inputFileName;
 	std::string outputFileName1;

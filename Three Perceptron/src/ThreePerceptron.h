@@ -27,10 +27,6 @@ private:
 
 	double error_threshold;
 
-	// èCê≥ó 
-	Eigen::RowVectorXd delta_hid;
-	Eigen::RowVectorXd delta_out;
-
 	double p;
 
 	Eigen::RowVectorXd sigmoid(Eigen::RowVectorXd vec);

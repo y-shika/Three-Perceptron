@@ -11,9 +11,6 @@ ThreePerceptron::ThreePerceptron() {
 	theta_hid.resize(HIDNUM);
 	theta_out.resize(OUTNUM);
 
-	delta_hid.resize(HIDNUM);
-	delta_out.resize(OUTNUM);
-
 	// 乱数生成器 [-1.0, 1.0)
 	std::random_device rnd;
 	std::mt19937_64 mt(rnd());
@@ -133,7 +130,8 @@ void ThreePerceptron::calc_p_errorTotal() {
 		if (error_out < error_threshold) correctCount++;
 	}
 
-	p = correctCount * 100 / Teach_out.size() / OUTNUM;
+	// 行列計算で誤差を求めているため, 仕様書に書いてあるような出力素子数で割る作業はいらない.
+	p = correctCount * 100 / Teach_out.size();
 
 	p_log.push_back(p);
 	errorTotal_out_log.push_back(errorTotal_out);
@@ -154,6 +152,9 @@ void ThreePerceptron::forwardPropagation(int i) {
 }
 
 void ThreePerceptron::backPropagation(int i) {
+	Eigen::Matrix<double, 1, OUTNUM> delta_out;
+	Eigen::Matrix<double, 1, HIDNUM> delta_hid;
+
 	Eigen::Matrix<double, INNUM, HIDNUM> delta_w_in_hid;
 	Eigen::Matrix<double, HIDNUM, OUTNUM> delta_w_hid_out;
 
